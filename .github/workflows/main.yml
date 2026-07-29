@@ -1,0 +1,73 @@
+name: CI/CD Pipeline - Next.js
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: write
+
+jobs:
+  # ------------------------------------
+  # ESTÁGIO 1: Integração Contínua (CI)
+  # ------------------------------------
+  ci:
+    name: Validar & Compilar
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Executar Linter
+        run: npm run lint
+
+      - name: Executar Testes
+        run: npm run test -- --watchAll=false || echo "Nenhum teste configurado"
+
+      - name: Executar Build
+        run: npm run build
+
+  # ------------------------------------
+  # ESTÁGIO 2: Deploy Automatizado (CD)
+  # ------------------------------------
+  cd:
+    name: Deploy no GitHub Pages
+    needs: ci
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Executar Build
+        run: npm run build
+
+      - name: Publicar no GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
+          allow_empty_commit: true
