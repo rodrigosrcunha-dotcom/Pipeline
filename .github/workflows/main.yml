@@ -34,7 +34,7 @@ jobs:
         run: npm run lint
 
       - name: Executar Testes
-        run: npm run test -- --watchAll=false || echo "Nenhum teste configurado"
+        run: npm test
 
       - name: Executar Build
         run: npm run build
