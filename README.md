@@ -26,6 +26,10 @@ Você pode acompanhar as execuções de Integração e Entrega Contínua na aba 
 3. **Validar & Compilar (CI):** Verifica se o código passa na verificação do linter, se todos os testes unitários foram executados com sucesso e se o build de produção foi gerado sem erros.
 4. **Deploy (CD):** Executado automaticamente após a aprovação do job de CI, publicando a versão atualizada no GitHub Pages.
 
+git add -A
+git commit -m "ci: forca envio de atualizacoes do workflow e readme"
+git push origin main
+
 ## 🌐 URL de publicação
 
 O site será publicado em GitHub Pages após o deploy aparecer no branch `gh-pages`.
