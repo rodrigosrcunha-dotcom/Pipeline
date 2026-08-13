@@ -1,8 +1,10 @@
-export default function App() {
+function App() {
   return (
-    <div className="app-container">
+    <main>
       <h1>Pipeline Frontend</h1>
       <p>CI/CD configurado para validação, build e deploy automático.</p>
-    </div>
+    </main>
   );
 }
+
+export default App;
