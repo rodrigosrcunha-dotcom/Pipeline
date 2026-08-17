@@ -1,5 +1,4 @@
 import React, { Suspense, lazy } from 'react';
-import './App.css';
 
 const ComponenteLento = lazy(() => import('./ComponenteLento'));
 
