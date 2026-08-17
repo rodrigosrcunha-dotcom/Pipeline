@@ -1,0 +1,1 @@
+import{j as e}from"./index-CQKeSvS1.js";function o(){return e.jsxs("section",{children:[e.jsx("h2",{children:"Módulo Carregado Dinamicamente"}),e.jsx("p",{children:"Este componente foi separado do bundle principal via React.lazy."})]})}export{o as default};
