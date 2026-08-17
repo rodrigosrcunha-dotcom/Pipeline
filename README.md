@@ -1,51 +1,42 @@
 # ⚡ Otimização e Auditoria de Performance Frontend (CI/CD)
 
-Aplicação Web simples desenvolvida em React e implantada de forma automatizada via pipeline de CI/CD utilizando **GitHub Actions** e **GitHub Pages**.
+Aplicação Web desenvolvida em React, testada com Vitest/JSDOM e implantada de forma automatizada via pipeline de CI/CD utilizando **GitHub Actions** e **GitHub Pages**.
 
 ---
 
-## 📊 Relatório de Auditoria Lighthouse
+## 🧪 Testes Automatizados e Compatibilidade
 
-Para garantir a qualidade, acessibilidade e SEO da aplicação, foi realizada uma análise de auditoria utilizando a ferramenta **Google Lighthouse**.
+* **Node.js**: Compatibilidade ajustada para **Node 20 / 22**.
+* **JSDOM**: Atualizado para a versão `^24.0.0` para evitar inconsistências de execução do runner durante a execução de `npm test`.
 
-### 🔄 Comparativo Geral (Antes vs. Depois)
+---
 
-| Categoria | Antes | Depois | Status |
+## 🛠️ Técnica de Otimização Aplicada
+
+Para gerar uma melhoria mensurável de carregamento e redução do payload inicial transmitido na rede, foram aplicadas as seguintes técnicas no código:
+
+1. **Divisão de Código (Code Splitting / Lazy Loading):** Utilização de `React.lazy()` e `<Suspense>` para postergar o carregamento de componentes secundários (`ComponenteLento.jsx`), reduzindo o tamanho do *bundle* inicial do JavaScript.
+2. **Otimização e Carregamento Preguiçoso de Imagens:** Utilização do atributo `loading="lazy"` e formato otimizado `.webp` com dimensões explícitas para evitar o *Cumulative Layout Shift* (CLS).
+3. **Acessibilidade e SEO Semântico:** Adição da tag semântica `<main>`, inclusão da `<meta name="description">` e atributo `lang="pt-BR"` no documento HTML.
+
+---
+
+## 📊 Comparativo de Métricas (Antes vs. Depois)
+
+### 📈 Desempenho e Recursos Transferidos
+
+| Métrica / Recurso | Antes da Otimização | Depois da Otimização | Melhoria / Impacto |
 | :--- | :---: | :---: | :---: |
-| **Performance** | **100** | **100** | 🟢 Mantido |
-| **Acessibilidade** | **94** | **100** | 🚀 Melhorado |
-| **Boas Práticas (Best Practices)** | **77** | **100** | 🚀 Melhorado |
-| **SEO** | **90** | **100** | 🚀 Melhorado |
+| **Pontuação Performance** | 100 | **100** | Mantido no topo |
+| **Pontuação Acessibilidade** | 94 | **100** | 📈 +6 pontos |
+| **Pontuação SEO** | 90 | **100** | 📈 +10 pontos |
+| **JavaScript Não Utilizado** | ~22.0 KiB | **< 2.0 KiB** | 🚀 Redução de ~90% |
+| **Tamanho do Bundle Principal** | Único arquivo carregado | Divisão em *chunks* dinâmicos | ⚡ Carregamento sob demanda |
+| **First Contentful Paint (FCP)** | 0.5s | **0.4s** | ⚡ Otimizado |
 
 ---
 
-## 🔍 Gargalos e Oportunidades Identificados (Diagnóstico "Antes")
+## 📁 Evidências da Auditoria
 
-1. **Acessibilidade (Nota: 94):** 
-   * Faltava a estrutura semântica principal `<main>` (`Document does not have a main landmark`), o que prejudicava a navegação por leitores de tela.
-2. **SEO (Nota: 90):** 
-   * A aplicação não continha a meta tag `<meta name="description">` no `<head>`, afetando a indexação e prévia nos mecanismos de busca.
-3. **Boas Práticas (Nota: 77 em ambiente padrão):** 
-   * Scripts e extensões injetados no navegador (ex: Google Translate) geravam *cookies* de terceiros sem a devida configuração.
-4. **Performance (Oportunidade de Otimização):**
-   * Identificado cerca de ~22 KiB de JavaScript não utilizado no pacote inicial do build.
-
----
-
-## 🛠️ Melhorias Aplicadas (Diagnóstico "Depois")
-
-1. **Inclusão de Tag Semântica:** 
-   * O componente principal (`App.jsx`) foi envolvido pela tag `<main>`, resolvendo a falha de estrutura e elevando a **Acessibilidade para 100**.
-2. **Adição de Meta Description & Ajuste de Idioma:** 
-   * Adicionada a tag `<meta name="description" content="Aplicação Web para o pipeline de CI/CD.">` e ajustado o atributo `lang="pt-BR"` no `index.html`, elevando o **SEO para 100**.
-3. **Auditoria em Ambiente Isolado (Aba Anônima):** 
-   * Teste realizado sem a interferência de extensões de terceiros, confirmando a pontuação de **100 em Boas Práticas**.
-
----
-
-## 📁 Evidências de Validação
-
-Os relatórios detalhados da auditoria e as capturas de tela foram armazenados na pasta `./docs`:
-
-* 📄 [Relatório Inicial (Antes)](./docs/lighthouse-antes.pdf)
-* 📸 [Prints de Validação e Notas Finais (100%)](./docs/)
+* 📄 [Relatório Inicial do Lighthouse (Antes)](./docs/lighthouse-antes.pdf)
+* 📄 [Relatório Otimizado do Lighthouse (Depois)](./docs/lighthouse-depois.pdf)
